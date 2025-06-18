@@ -1,10 +1,16 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { router } from "expo-router";
+import { useActivities } from "@/hooks/useActivities";
 
 export default function Index() {
+  const { activities } = useActivities();
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Edit app/index.tsx to edit this screen.</Text>
+      {activities.map((activity) => (
+        <Text key={activity.id}>
+          {activity.steps} steps on {new Date(activity.date).toLocaleDateString()}
+        </Text>
+      ))}
       <Pressable style={styles.button} onPress={() => {
         router.push('/add-activity-screen');
       }}>
