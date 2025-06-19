@@ -12,11 +12,16 @@ export function useActivities() {
     const db = useSQLiteContext();
 
     function getActivities() {
-        return db.getAllSync<Activity>("SELECT * FROM activities");
+        return db.getAllSync<Activity>("SELECT * FROM activities ORDER BY date DESC") as Activity[];
     }
 
     function insertActivity(steps: number, date: Date) {
         db.execSync(`INSERT INTO activities (steps, date) VALUES (${steps}, ${date.getTime()})`);
+        reload();
+    }
+
+    function deleteAllActivities() {
+        db.execSync(`DELETE FROM activities`);
         reload();
     }
 
@@ -29,5 +34,5 @@ export function useActivities() {
         reload();
     }, []);
 
-    return { getActivities, activities, insertActivity };
+    return { getActivities, activities, insertActivity, deleteAllActivities };
 }
