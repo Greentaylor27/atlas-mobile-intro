@@ -34,7 +34,10 @@ export const Action = ({ text }: { text: string }) => {
 }
 
 const styles = StyleSheet.create({
-    view: {},
-    actionView: {},
-    actionText: {},
+    view: {
+        borderWidth: 1,
+        borderColor: 'black',
+        width: "100%",
+        height: "100%",
+    },
 });
